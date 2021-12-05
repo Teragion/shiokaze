@@ -106,7 +106,7 @@ def build(bld):
 	#
 	if sys.platform == 'darwin':
 		bld.env.LIBPATH.append(bld.root_path+'/local/lib/macos')
-	elif sys.platform == 'linux2':
+	elif sys.platform == 'linux':
 		bld.env.LIBPATH.append(bld.root_path+'/local/lib/linux')
 	#
 	bld.env.INCLUDES = ['/usr/local/include',
@@ -120,14 +120,14 @@ def build(bld):
 		if sys.platform == 'darwin':
 			bld.LIB_OPENGL = ['glfw3']
 			bld.FRAMEWORK_OPENGL = ['OpenGL','GLUT','Cocoa','CoreVideo','IOKit']
-		elif sys.platform == 'linux2':
+		elif sys.platform == 'linux':
 			bld.LIB_OPENGL = ['glfw','GL','GLU','glut']
 			bld.FRAMEWORK_OPENGL = []
 	else:
 		if sys.platform == 'darwin':
 			bld.LIB_OPENGL = []
 			bld.FRAMEWORK_OPENGL = []
-		elif sys.platform == 'linux2':
+		elif sys.platform == 'linux':
 			bld.LIB_OPENGL = []
 			bld.FRAMEWORK_OPENGL = []
 	#
@@ -149,7 +149,7 @@ def build(bld):
 def greeting(str):
 	rows, columns = os.popen('stty size', 'r').read().split()
 	count = len(str)
-	streamer_count = (greet_total-count-2)/2
+	streamer_count = (greet_total-count-2)//2
 	for i in range(streamer_count):
 		sys.stdout.write('-')
 	sys.stdout.write(' ')
@@ -160,7 +160,7 @@ def greeting(str):
 	sys.stdout.write('\n')
 #
 def message(str):
-	print str
+	print(str)
 #
 def greet_end():
 	for i in range(greet_total):
